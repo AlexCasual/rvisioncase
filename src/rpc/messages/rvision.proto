@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package rvision_rpc;
+
+service SportLinesService
+{
+    rpc SubscribeOnSportsLines (stream SportsLinesRequest) returns (stream SportsLinesResponse) {}
+}
+
+message SportLine {
+   double score = 1;
+   string sport = 2;
+}
+
+
+message SportsLinesRequest {
+   uint64 polling_period = 1;
+   repeated string sports = 2;
+}
+
+message SportsLinesResponse {
+    repeated SportLine lines = 1;
+}

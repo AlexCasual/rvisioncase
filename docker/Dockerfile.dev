@@ -1,0 +1,28 @@
+FROM ubuntu
+
+RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
+	
+RUN apt-get update && apt-get install -y \
+    openssh-server \
+    gdb \
+	pkg-config \
+	libsqlite3-0 \
+    g++ rsync zip make cmake ninja-build \
+    libpoco-dev libboost-dev libgtest-dev libgrpc++-dev \
+    protobuf-compiler libprotoc-dev libprotobuf-dev
+
+ENV CMAKE_C_COMPILER=/usr/bin/gcc
+ENV CMAKE_CXX_COMPILER=/usr/bin/g++
+ENV CMAKE_MAKE_PROGRAM=/usr/bin/ninja
+
+# Configure SSH
+RUN mkdir -p /var/run/sshd
+RUN echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config && ssh-keygen -A
+
+# Add user and set password
+RUN useradd -m -d /home/dev -s /bin/bash -G sudo dev && echo "dev:dev" | chpasswd
+
+# Expose port 22
+EXPOSE 22
+
+ENTRYPOINT service ssh restart && bash

@@ -1,0 +1,12 @@
+version: '2'
+services:
+
+  rvision:
+    build: .
+    image: rvision
+    volumes:
+       - "./config/rvision.json:/root/bin/rvision.json"
+    ports:
+      - '1024:1024'
+      - '10500:10500'
+      - '10501:10501'

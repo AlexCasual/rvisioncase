@@ -1,0 +1,27 @@
+{
+	"logger_level": "info",
+	"logger_sink": "console",
+	"grpc_server": "localhost:10500",
+	"http_server": "localhost:10501",
+	"lines_server": 
+	{
+		"host": "https://206d2153-cfa9-49a7-b023-d1eccfc2b330.mock.pstmn.io",
+		"api": "api/v1/lines"
+	},
+	"lines_count": "3",
+	"lines": 
+	[
+		{
+			"sport": "soccer",
+			"poll": "1"
+		},
+		{
+			"sport": "baseball",
+			"poll": "2"
+		},
+		{
+			"sport": "football",
+			"poll": "3"
+		}
+	]
+}
